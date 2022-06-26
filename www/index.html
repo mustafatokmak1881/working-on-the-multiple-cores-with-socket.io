@@ -1,0 +1,83 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Working On The Multiple Cores With Socket.IO</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.0/socket.io.js"></script>
+
+    <script>
+
+        var roomName = "";
+        var socket = io.connect("http://62.210.28.92:8888");
+
+        socket.on("connect", function () {
+
+        });
+
+        socket.on("join", function (data) {
+            $(".joinForm").hide();
+            $(".messageForm").show();
+            roomName = data.roomName;
+            swal({
+                title: "Success",
+                text: "You joined to " + data.roomName,
+                icon: "success"
+            });
+        });
+
+        socket.on("message", data => {
+            swal(data);
+        });
+
+
+        $(document).on("click", ".joinBtn", function () {
+            socket.emit("join", { roomName: $(".selectRoom").val() });
+        });
+
+
+        $(document).on("click", ".sendBtn", function () {
+            socket.emit("message", {
+                title: "1 New Message",
+                text: $(".message").val(),
+                icon: "success",
+                roomName:roomName
+            });
+        });
+
+    </script>
+
+
+</head>
+
+<body>
+    <div class="container-fluid form-control rounded">
+        <div class="row justify-content-center text-center mt-2 mb-5 joinForm">
+            <div class="col-12">
+                <select class="form-control selectRoom">
+                    <option value="room1">room1</option>
+                    <option value="room2">room2</option>
+                    <option value="room3">room3</option>
+                    <option value="everyone">everyone</option>
+                </select>
+            </div>
+            <div class="col-12 mt-1">
+                <button class="btn btn-success w-100 joinBtn">Join</button>
+            </div>
+        </div>
+        <div class="row justify-content-center text-center mt-5 mb-2 messageForm">
+            <div class="col-12">
+                <input class="form-control message" placeholder="message">
+            </div>
+            <div class="col-12 mt-1">
+                <button class="btn btn-primary w-100 sendBtn">Send</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "work-with-multi-chat-servers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mhmttkmk0352/work-with-multi-chat-servers.git"
+  },
+  "author": "Mehmet TOKMAK",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mhmttkmk0352/work-with-multi-chat-servers/issues"
+  },
+  "homepage": "https://github.com/mhmttkmk0352/work-with-multi-chat-servers#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "socket.io": "^4.5.0",
+    "socket.io-redis": "^6.1.1",
+    "sticky-session": "^1.1.2"
+  }
+}
